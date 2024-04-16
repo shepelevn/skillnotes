@@ -1,0 +1,21 @@
+{% extends "_layout.njk" %}
+
+{% block style %}
+  <style>
+    .not-found {
+      height: 90vh;
+    }
+
+    .not-found__title {
+      font-size: 35px;
+      color: #006fff;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="not-found uk-flex uk-flex-column uk-flex-center uk-flex-middle">
+    <h2 class="not-found__title">Ошибка 404</h2>
+    <p class="uk-text-large uk-margin-remove">Страница не найдена</p>
+  </div>
+{% endblock %}

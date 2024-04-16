@@ -1,5 +1,7 @@
 TODOs:
   - Move DB to cloud
+  - Change avatar generation maybe
+  - Check if layout is responsive
 
   - Check TODOs, console.logs, console.debugs and alerts
   - Check for errors in console
