@@ -3,7 +3,7 @@ import knex from "../knex";
 import { noop } from "../util/noop";
 import User from "./User";
 
-export async function auth(req: Request, _res: Response, next: () => void) {
+export async function authenticate(req: Request, _res: Response, next: () => void) {
   const userId = req.session.userId;
 
   if (!userId) {

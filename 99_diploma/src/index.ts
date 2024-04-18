@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import express from "express";
+import express, { Request, Response } from "express";
 import nunjucks from "nunjucks";
 import path from "path";
 import connectSessionKnex from "connect-session-knex";
@@ -17,7 +17,7 @@ declare module "express-session" {
 import knex from "./knex";
 import pagesRouter from "./pagesRouter";
 import authRouter from "./auth/authRouter";
-import apiRouter from "./api/apiRouter";
+import apiNotesRouter from "./api/apiNotesRouter";
 
 const KnexSessionStore = connectSessionKnex(expressSession);
 
@@ -56,7 +56,12 @@ app.use(
 );
 
 app.use("", authRouter);
-app.use("/api", apiRouter);
+app.use("/api/notes", apiNotesRouter);
+
+app.all("/api/*", (_req: Request, res: Response) => {
+  res.status(404).json({ error: "Route not found" });
+});
+
 app.use("", pagesRouter);
 
 const port = process.env.PORT || 3000;

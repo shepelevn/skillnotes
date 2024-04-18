@@ -4,6 +4,8 @@
 
 ## TODO
 
+* Create seeders
+* Implement API functions
 * Move DB to cloud
 * Change avatar generation maybe
 * Check if layout is responsive

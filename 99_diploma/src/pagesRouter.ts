@@ -1,10 +1,10 @@
 import express from "express";
 
-import { auth } from "./auth/auth";
+import { authenticate } from "./auth/authenticate";
 
 const pagesRouter = express.Router();
 
-pagesRouter.use(auth);
+pagesRouter.use(authenticate);
 
 pagesRouter.get("/", (req, res) => {
   if (req.user) {

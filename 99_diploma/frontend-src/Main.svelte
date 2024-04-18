@@ -94,7 +94,7 @@
 
 <section class="uk-flex uk-grid-collapse">
   <aside class="uk-width-1-4 uk-padding-small">
-    {#if age !== 'archive'}
+    {#if age !== 'archived'}
       {#if activeNoteId === 'new'}
         <button disabled class="uk-button uk-button-primary uk-display-block uk-width-1-1">Новая заметка</button>
       {:else}
@@ -112,7 +112,7 @@
         <option value="1month">за месяц</option>
         <option value="3months">за 3 месяца</option>
         <option value="alltime">за всё время</option>
-        <option value="archive">архив</option>
+        <option value="archived">архив</option>
       </select>
     </p>
     <!-- <p class="uk-search uk-search-default uk-width-1-1">
