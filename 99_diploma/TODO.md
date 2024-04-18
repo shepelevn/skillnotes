@@ -4,7 +4,6 @@
 
 ## TODO
 
-* Test GET '/notes' route
 * Implement API functions
 * Move DB to cloud
 * Change avatar generation maybe

@@ -31,19 +31,21 @@ apiNotesRouter.get("/", async (req: Request, res: Response) => {
     const notes = await getNotes(age, page, req.user.id);
     res.json(notes);
   } catch (error) {
-    if (error instanceof ApiError) {
-      res.status(400).json({ error: error.message });
-      return;
-    } else {
-      res.status(500).json({ error: "Internal server error" });
-
-      throw error;
-    }
+    catchApiError(error, res);
+    return;
   }
 });
 
 apiNotesRouter.get("/:noteId", async (req: Request, res: Response) => {
+  // TODO: Move repeating logic to the function
   const noteId: string = req.params.noteId;
+
+  try {
+    checkNoteId(noteId);
+  } catch (error) {
+    catchApiError(error, res);
+    return;
+  }
 
   const note = await getNote(noteId);
 
@@ -55,6 +57,7 @@ apiNotesRouter.get("/:noteId", async (req: Request, res: Response) => {
 });
 
 apiNotesRouter.post("/", async (req: Request, res: Response) => {
+  // TODO: Move repeating logic to the function
   const title = req.body.title.trim();
   const text = req.body.text.trim();
 
@@ -81,6 +84,13 @@ apiNotesRouter.post("/", async (req: Request, res: Response) => {
 
 apiNotesRouter.put("/:noteId", async (req: Request, res: Response) => {
   const noteId: string = req.params.noteId;
+
+  try {
+    checkNoteId(noteId);
+  } catch (error) {
+    catchApiError(error, res);
+    return;
+  }
 
   const note = await getNote(noteId);
 
@@ -117,6 +127,13 @@ apiNotesRouter.put("/:noteId", async (req: Request, res: Response) => {
 apiNotesRouter.post("/:noteId/archive", async (req: Request, res: Response) => {
   const noteId: string = req.params.noteId;
 
+  try {
+    checkNoteId(noteId);
+  } catch (error) {
+    catchApiError(error, res);
+    return;
+  }
+
   const note = await getNote(noteId);
 
   if (!checkNote(note, noteId, req.user, res)) {
@@ -137,6 +154,13 @@ apiNotesRouter.post("/:noteId/archive", async (req: Request, res: Response) => {
 
 apiNotesRouter.post("/:noteId/unarchive", async (req: Request, res: Response) => {
   const noteId: string = req.params.noteId;
+
+  try {
+    checkNoteId(noteId);
+  } catch (error) {
+    catchApiError(error, res);
+    return;
+  }
 
   const note = await getNote(noteId);
 
@@ -165,6 +189,13 @@ apiNotesRouter.delete("/archived", async (req: Request, res: Response) => {
 apiNotesRouter.delete("/:noteId", async (req: Request, res: Response) => {
   const noteId: string = req.params.noteId;
 
+  try {
+    checkNoteId(noteId);
+  } catch (error) {
+    catchApiError(error, res);
+    return;
+  }
+
   const note = await getNote(noteId);
 
   if (!checkNote(note, noteId, req.user, res)) {
@@ -185,7 +216,6 @@ async function getNotes(age: string, page: number, userId: number): Promise<Note
     .offset((page - 1) * PAGE_COUNT)
     .limit(PAGE_COUNT)
     .modify((builder) => {
-      // TODO: Test after creating seeders
       switch (age) {
         case "1month":
           builder.andWhere("created_at", ">=", getMonthsAgo(1)).andWhere("archived", false);
@@ -229,6 +259,25 @@ function checkNote(note: Note | undefined, noteId: string, user: User, res: Resp
   }
 
   return true;
+}
+
+function checkNoteId(noteIdString: string): void {
+  const noteId: number = Number(noteIdString);
+
+  if (isNaN(noteId) || !Number.isInteger(noteId) || noteId <= 0) {
+    throw new ApiError("Wrong id format");
+  }
+}
+
+function catchApiError(error: unknown, res: Response): void {
+  if (error instanceof ApiError) {
+    res.status(400).json({ error: error.message });
+    return;
+  } else if (error instanceof Error) {
+    res.status(500).json({ error: "Internal server error" });
+
+    throw error;
+  }
 }
 
 export default apiNotesRouter;
