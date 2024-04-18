@@ -29,7 +29,6 @@ apiNotesRouter.get("/", async (req: Request, res: Response) => {
 
   try {
     const notes = await getNotes(age, page, req.user.id);
-
     res.json(notes);
   } catch (error) {
     if (error instanceof ApiError) {

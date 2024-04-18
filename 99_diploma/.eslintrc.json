@@ -26,5 +26,11 @@
     "prettier/prettier": "error",
     "@typescript-eslint/prefer-readonly": "error"
   },
-  "settings": {}
+  "settings": {},
+  "overrides": [
+    {
+      "files": ["*.js"],
+      "extends": ["plugin:@typescript-eslint/disable-type-checked"]
+    }
+  ]
 }

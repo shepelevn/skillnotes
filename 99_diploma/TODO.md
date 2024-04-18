@@ -4,13 +4,13 @@
 
 ## TODO
 
-* Create seeders
+* Test GET '/notes' route
 * Implement API functions
 * Move DB to cloud
 * Change avatar generation maybe
 * Check if layout is responsive
 
-## Checks before merge
+## Checks before commit
 
 * Check TODO comments, console.logs, console.debugs and alerts
 * Check for errors in console

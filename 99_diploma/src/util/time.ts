@@ -1,3 +1,5 @@
+import { randomInt } from "./randomInt";
+
 export function getMonthsAgo(months: number): Date {
   const date = new Date();
   const month = date.getMonth();
@@ -9,4 +11,8 @@ export function getMonthsAgo(months: number): Date {
   date.setHours(0, 0, 0, 0);
 
   return date;
+}
+
+export function randomDate(start: number, end: number = Date.now()) {
+  return new Date(randomInt(start, end));
 }
