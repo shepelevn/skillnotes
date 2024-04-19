@@ -6,6 +6,7 @@ import { Note, isNotesArray } from "./Note";
 import { getMonthsAgo } from "../util/time";
 import ApiError from "./ApiError";
 import User from "../auth/User";
+import NoteData from "./NoteData";
 
 const apiNotesRouter = express.Router();
 
@@ -37,13 +38,9 @@ apiNotesRouter.get("/", async (req: Request, res: Response) => {
 });
 
 apiNotesRouter.get("/:noteId", async (req: Request, res: Response) => {
-  // TODO: Move repeating logic to the function
-  const noteId: string = req.params.noteId;
+  const noteId = getNoteId(req, res);
 
-  try {
-    checkNoteId(noteId);
-  } catch (error) {
-    catchApiError(error, res);
+  if (!noteId) {
     return;
   }
 
@@ -57,23 +54,15 @@ apiNotesRouter.get("/:noteId", async (req: Request, res: Response) => {
 });
 
 apiNotesRouter.post("/", async (req: Request, res: Response) => {
-  // TODO: Move repeating logic to the function
-  const title = req.body.title.trim();
-  const text = req.body.text.trim();
+  const noteData = getNoteData(req, res);
 
-  if (!title) {
-    res.status(400).json({ error: "Title is not provided" });
-    return;
-  }
-
-  if (!text) {
-    res.status(400).json({ error: "Text is not provided" });
+  if (!noteData) {
     return;
   }
 
   const newNote = {
-    title,
-    text,
+    title: noteData.title,
+    text: noteData.text,
     user_id: req.user.id,
   };
 
@@ -83,12 +72,9 @@ apiNotesRouter.post("/", async (req: Request, res: Response) => {
 });
 
 apiNotesRouter.put("/:noteId", async (req: Request, res: Response) => {
-  const noteId: string = req.params.noteId;
+  const noteId = getNoteId(req, res);
 
-  try {
-    checkNoteId(noteId);
-  } catch (error) {
-    catchApiError(error, res);
+  if (!noteId) {
     return;
   }
 
@@ -98,23 +84,16 @@ apiNotesRouter.put("/:noteId", async (req: Request, res: Response) => {
     return;
   }
 
-  const title = req.body.title.trim();
-  const text = req.body.text.trim();
+  const noteData = getNoteData(req, res);
 
-  if (!title) {
-    res.status(400).json({ error: "Title is not provided" });
-    return;
-  }
-
-  if (!text) {
-    res.status(400).json({ error: "Text is not provided" });
+  if (!noteData) {
     return;
   }
 
   const updatedNoteArray: Note[] = await knex("notes")
     .update({
-      title,
-      text,
+      title: noteData.title,
+      text: noteData.text,
     })
     .where("id", noteId)
     .returning("*");
@@ -125,12 +104,9 @@ apiNotesRouter.put("/:noteId", async (req: Request, res: Response) => {
 });
 
 apiNotesRouter.post("/:noteId/archive", async (req: Request, res: Response) => {
-  const noteId: string = req.params.noteId;
+  const noteId = getNoteId(req, res);
 
-  try {
-    checkNoteId(noteId);
-  } catch (error) {
-    catchApiError(error, res);
+  if (!noteId) {
     return;
   }
 
@@ -153,12 +129,9 @@ apiNotesRouter.post("/:noteId/archive", async (req: Request, res: Response) => {
 });
 
 apiNotesRouter.post("/:noteId/unarchive", async (req: Request, res: Response) => {
-  const noteId: string = req.params.noteId;
+  const noteId = getNoteId(req, res);
 
-  try {
-    checkNoteId(noteId);
-  } catch (error) {
-    catchApiError(error, res);
+  if (!noteId) {
     return;
   }
 
@@ -187,12 +160,9 @@ apiNotesRouter.delete("/archived", async (req: Request, res: Response) => {
 });
 
 apiNotesRouter.delete("/:noteId", async (req: Request, res: Response) => {
-  const noteId: string = req.params.noteId;
+  const noteId = getNoteId(req, res);
 
-  try {
-    checkNoteId(noteId);
-  } catch (error) {
-    catchApiError(error, res);
+  if (!noteId) {
     return;
   }
 
@@ -261,6 +231,19 @@ function checkNote(note: Note | undefined, noteId: string, user: User, res: Resp
   return true;
 }
 
+function getNoteId(req: Request, res: Response): string | undefined {
+  const noteId: string = req.params.noteId;
+
+  try {
+    checkNoteId(noteId);
+  } catch (error) {
+    catchApiError(error, res);
+    return undefined;
+  }
+
+  return noteId;
+}
+
 function checkNoteId(noteIdString: string): void {
   const noteId: number = Number(noteIdString);
 
@@ -278,6 +261,23 @@ function catchApiError(error: unknown, res: Response): void {
 
     throw error;
   }
+}
+
+function getNoteData(req: Request, res: Response): NoteData | null {
+  const title = req.body.title.trim();
+  const text = req.body.text.trim();
+
+  if (!title) {
+    res.status(400).json({ error: "Title is not provided" });
+    return null;
+  }
+
+  if (!text) {
+    res.status(400).json({ error: "Text is not provided" });
+    return null;
+  }
+
+  return { title, text };
 }
 
 export default apiNotesRouter;
