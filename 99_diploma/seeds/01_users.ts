@@ -6,6 +6,9 @@ const USERS_COUNT = 3;
 
 export async function seed(knex: Knex): Promise<void> {
   await knex.raw("TRUNCATE TABLE users RESTART IDENTITY CASCADE");
+
+  await knex("sessions").truncate();
+
   await knex("users").insert(createUsers(USERS_COUNT));
 }
 
