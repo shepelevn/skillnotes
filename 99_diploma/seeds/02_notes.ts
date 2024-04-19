@@ -40,13 +40,15 @@ function generateMarkdown(): string {
 
   const subheading = faker.lorem.words(randomInt(3, 5));
 
-  const paragraph = faker.lorem.paragraph(1);
-
   return `
-    # ${heading}
+  # ${heading}
 
-    ## ${subheading}
+  ## ${subheading}
 
-    ${paragraph}
+  ${faker.lorem.paragraph(randomInt(1, 4))}
+
+  ${faker.lorem.paragraph(randomInt(1, 4))}
+
+  ${faker.lorem.paragraph(randomInt(1, 4))}
   `;
 }
