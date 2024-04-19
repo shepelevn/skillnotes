@@ -5,7 +5,7 @@ import { hash } from "../src/util/hash";
 const USERS_COUNT = 3;
 
 export async function seed(knex: Knex): Promise<void> {
-  await knex.raw("TRUNCATE TABLE users CASCADE");
+  await knex.raw("TRUNCATE TABLE users RESTART IDENTITY CASCADE");
   await knex("users").insert(createUsers(USERS_COUNT));
 }
 
