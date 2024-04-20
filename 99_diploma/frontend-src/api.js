@@ -29,13 +29,8 @@ export const getNotes = ({ age, search, page } = {}) => {
 
 export const createNote = (title, text) => {};
 
-export const getNote = async (id) => {
-  const response = await req(`/${id}`);
-
-  console.debug("getNote response");
-  console.debug(response);
-
-  return response;
+export const getNote = (id) => {
+  return req(`/${id}`);
 };
 
 export const archiveNote = {};

@@ -213,15 +213,9 @@ async function getNotes(age: string, page: number, userId: number): Promise<Note
 
   const notes = await notesQuery;
 
-  console.debug("notesQuery.toSQL()");
-  console.debug(notesQuery.toSQL());
-
   if (!isNotesArray(notes)) {
     throw new TypeError("notes array has an item which is not the Note type");
   }
-
-  console.debug("notes");
-  console.debug(notes);
 
   return notes;
 }
