@@ -100,6 +100,7 @@ apiNotesRouter.put("/:noteId", async (req: Request, res: Response) => {
     .update({
       title: noteData.title,
       markdown: noteData.markdown,
+      modified: new Date(),
     })
     .where("id", noteId)
     .returning("*");
@@ -128,7 +129,10 @@ apiNotesRouter.post("/:noteId/archive", async (req: Request, res: Response) => {
     return;
   }
 
-  const noteArray: Note[] = await knex("notes").update({ archived: true }).where("id", noteId).returning("*");
+  const noteArray: Note[] = await knex("notes")
+    .update({ archived: true, modified: new Date() })
+    .where("id", noteId)
+    .returning("*");
 
   const archivedNote: Note = noteArray[0];
 
@@ -154,7 +158,10 @@ apiNotesRouter.post("/:noteId/unarchive", async (req: Request, res: Response) =>
     return;
   }
 
-  const noteArray: Note[] = await knex("notes").update({ archived: false }).where("id", noteId).returning("*");
+  const noteArray: Note[] = await knex("notes")
+    .update({ archived: false, modified: new Date() })
+    .where("id", noteId)
+    .returning("*");
 
   const unarchivedNote: Note = noteArray[0];
 
@@ -194,13 +201,14 @@ async function getNotes(age: string, page: number, userId: number): Promise<Note
     .where("user_id", userId)
     .offset((page - 1) * PAGE_COUNT)
     .limit(PAGE_COUNT + 1)
+    .orderBy("modified", "desc")
     .modify((builder) => {
       switch (age) {
         case "1month":
-          builder.andWhere("created", ">=", getMonthsAgo(1)).andWhere("archived", false);
+          builder.andWhere("modified", ">=", getMonthsAgo(1)).andWhere("archived", false);
           break;
         case "3months":
-          builder.andWhere("created", ">=", getMonthsAgo(3)).andWhere("archived", false);
+          builder.andWhere("modified", ">=", getMonthsAgo(3)).andWhere("archived", false);
           break;
         case "alltime":
           builder.andWhere("archived", false);

@@ -26,6 +26,7 @@ function createNotes(users: User[], count: number) {
         title: capitalize(faker.word.words(randomInt(2, 5))),
         markdown: generateMarkdown(),
         created: randomDate(Date.now() - ms("30d") * 4),
+        modified: randomDate(Date.now() - ms("30d") * 4),
         archived: Boolean(randomInt(0, 1)),
         user_id: user.id,
       });
