@@ -19,7 +19,7 @@
     fetching = getNote(params.id).then((data) => {
       title = data.title;
       setTimeout(() => {
-        mdEditor = new EasyMDE({ element: textarea, forceSync: true, status: false, initialValue: data.text });
+        mdEditor = new EasyMDE({ element: textarea, forceSync: true, status: false, initialValue: data.markdown });
       });
     });
 

@@ -28,7 +28,13 @@ export const getNotes = ({ age, search, page } = {}) => {
 };
 
 export const createNote = (title, markdown) => {
-
+  const options = {
+    method: "POST",
+    body: {
+      title,
+      markdown,
+    },
+  };
 
   return req("", options);
 };
@@ -37,14 +43,48 @@ export const getNote = (id) => {
   return req(`/${id}`);
 };
 
-export const archiveNote = {};
+export const archiveNote = (id) => {
+  const options = {
+    method: "POST",
+  };
 
-export const unarchiveNote = {};
+  return req(`/${id}/archive`, options);
+};
 
-export const editNote = (id, title, markdown) => {};
+export const unarchiveNote = (id) => {
+  const options = {
+    method: "POST",
+  };
 
-export const deleteNote = (id) => {};
+  return req(`/${id}/unarchive`, options);
+};
 
-export const deleteAllArchived = () => {};
+export const editNote = (id, title, markdown) => {
+  const options = {
+    method: "PUT",
+    body: {
+      title,
+      markdown,
+    },
+  };
 
-export const notePdfUrl = (id) => {};
+  return req(`/${id}`, options);
+};
+
+export const deleteNote = (id) => {
+  const options = {
+    method: "DELETE",
+  };
+
+  return fetch(`${PREFIX}/${id}`, options);
+};
+
+export const deleteAllArchived = () => {
+  const options = {
+    method: "DELETE",
+  };
+
+  return fetch(`${PREFIX}/archived`, options);
+};
+
+// export const notePdfUrl = (id) => {};

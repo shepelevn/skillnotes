@@ -25,6 +25,7 @@
       return;
     }
     const note = await createNote(title, markdown);
+
     dispatch("routeEvent", { type: "note-created", id: note.id });
   };
 

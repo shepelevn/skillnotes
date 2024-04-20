@@ -58,7 +58,7 @@ apiNotesRouter.get("/:noteId", async (req: Request, res: Response) => {
 });
 
 apiNotesRouter.post("/", async (req: Request, res: Response) => {
-  const noteData = getNoteData(req, res);
+  const noteData: NoteData | null = getNoteData(req, res);
 
   if (!noteData) {
     return;
@@ -70,9 +70,9 @@ apiNotesRouter.post("/", async (req: Request, res: Response) => {
     user_id: req.user.id,
   };
 
-  const insertResult = await knex("notes").insert(newNote).returning("*");
+  const insertResultArray: Note[] = await knex("notes").insert(newNote).returning("*");
 
-  res.json(insertResult);
+  res.status(201).json(insertResultArray[0]);
 });
 
 apiNotesRouter.put("/:noteId", async (req: Request, res: Response) => {
@@ -296,10 +296,8 @@ function createHtmlNote(note: Note): HtmlNote {
   }
 
   return {
-    id: note.id,
-    title: note.title,
     html: sanitizeHtml(html),
-    created: note.created,
+    ...note,
   };
 }
 

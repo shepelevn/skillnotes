@@ -40,7 +40,7 @@
 {:then entry}
   <h1>{entry.title}</h1>
   <div class="uk-margin-bottom">
-    {#if entry.isArchived}
+    {#if entry.archived}
       <button on:click={doDelete} class="uk-button uk-button-default"><i class="fas fa-trash" />&nbsp;Удалить</button>
       <button on:click={doUnarchive} class="uk-button uk-button-default"><i
           class="fas fa-archive" />&nbsp;Восстановить</button>

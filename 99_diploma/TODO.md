@@ -4,8 +4,9 @@
 
 ## TODO
 
-* Implement API functions
 * Test '/notes' API routes
+* Test the site functionality
+* Add notes sorting logic
 * Move DB to cloud
 * Change avatar generation maybe
 * Check if layout is responsive
