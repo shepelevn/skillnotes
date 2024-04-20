@@ -1,6 +1,6 @@
 type NoteData = {
   title: string;
-  text: string;
+  markdown: string;
 };
 
 export default NoteData;

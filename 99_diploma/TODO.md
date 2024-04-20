@@ -4,7 +4,6 @@
 
 ## TODO
 
-* Rename text property to markdown in database
 * Implement API functions
 * Test '/notes' API routes
 * Move DB to cloud

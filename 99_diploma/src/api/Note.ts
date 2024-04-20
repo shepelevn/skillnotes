@@ -1,7 +1,7 @@
 export type Note = {
   id: number;
   title: string;
-  text: string;
+  markdown: string;
   created: Date;
   user_id: number;
   archived: boolean;
@@ -16,7 +16,7 @@ export function isNote(note: Record<string, any>): note is Note {
     return false;
   }
 
-  if (typeof note.text !== "string") {
+  if (typeof note.markdown !== "string") {
     return false;
   }
 
