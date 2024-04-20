@@ -27,7 +27,11 @@ export const getNotes = ({ age, search, page } = {}) => {
   return req(`?age=${age}&search=${search}&page=${page}`);
 };
 
-export const createNote = (title, text) => {};
+export const createNote = (title, markdown) => {
+
+
+  return req("", options);
+};
 
 export const getNote = (id) => {
   return req(`/${id}`);
@@ -37,7 +41,7 @@ export const archiveNote = {};
 
 export const unarchiveNote = {};
 
-export const editNote = (id, title, text) => {};
+export const editNote = (id, title, markdown) => {};
 
 export const deleteNote = (id) => {};
 

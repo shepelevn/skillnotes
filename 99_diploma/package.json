@@ -27,7 +27,8 @@
     "marked": "^12.0.2",
     "ms": "^2.1.3",
     "nunjucks": "^3.2.2",
-    "pg": "^8.11.5"
+    "pg": "^8.11.5",
+    "sanitize-html": "^2.13.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
@@ -44,6 +45,7 @@
     "@types/express-session": "^1.18.0",
     "@types/ms": "^0.7.34",
     "@types/nunjucks": "^3.2.6",
+    "@types/sanitize-html": "^2.11.0",
     "@typescript-eslint/eslint-plugin": "^7.7.0",
     "babel-eslint": "^10.1.0",
     "core-js": "^3.8.1",

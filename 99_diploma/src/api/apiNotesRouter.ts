@@ -9,6 +9,7 @@ import User from "../auth/User";
 import NoteData from "./NoteData";
 import HtmlNote from "./HtmlNote";
 import { marked } from "marked";
+import sanitizeHtml from "sanitize-html";
 
 const apiNotesRouter = express.Router();
 
@@ -272,22 +273,21 @@ function catchApiError(error: unknown, res: Response): void {
 
 function getNoteData(req: Request, res: Response): NoteData | null {
   const title = req.body.title.trim();
-  const text = req.body.text.trim();
+  const markdown = req.body.markdown.trim();
 
   if (!title) {
     res.status(400).json({ error: "Title is not provided" });
     return null;
   }
 
-  if (!text) {
-    res.status(400).json({ error: "Text is not provided" });
+  if (!markdown) {
+    res.status(400).json({ error: "Markdown is not provided" });
     return null;
   }
 
-  return { title, markdown: text };
+  return { title, markdown: markdown };
 }
 
-// TODO: Add DOMPurify
 function createHtmlNote(note: Note): HtmlNote {
   const html = marked.parse(note.markdown);
 
@@ -298,7 +298,7 @@ function createHtmlNote(note: Note): HtmlNote {
   return {
     id: note.id,
     title: note.title,
-    html,
+    html: sanitizeHtml(html),
     created: note.created,
   };
 }
