@@ -4,7 +4,6 @@
 
 ## TODO
 
-* Add user with username 'user' to seed
 * Rename text property to markdown in database
 * Implement API functions
 * Test '/notes' API routes

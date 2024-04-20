@@ -15,6 +15,11 @@ export async function seed(knex: Knex): Promise<void> {
 function createUsers(count: number): UserData[] {
   const users: UserData[] = [];
 
+  users.push({
+    username: "user",
+    password: hash("password"),
+  });
+
   for (let i = 0; i < count; i++) {
     users.push({
       username: `user${i + 1}`,
