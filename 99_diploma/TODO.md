@@ -4,7 +4,6 @@
 
 ## TODO
 
-* Test '/notes' API routes
 * Test the site functionality
 * Add notes sorting logic
 * Move DB to cloud
