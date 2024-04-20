@@ -3,7 +3,7 @@
   import EasyMDE from "easymde";
 
   import Progress from "./Progress.svelte";
-  import { getNote, editNote, notePdfUrl } from "./api";
+  import { getNote, editNote } from "./api";
 
   export let params;
 

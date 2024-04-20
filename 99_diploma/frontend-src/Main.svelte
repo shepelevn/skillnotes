@@ -31,7 +31,7 @@
       entries = [];
     }
     return (fetching = getNotes({ age, search, page }).then((data) => {
-      entries = entries.concat(data);
+      entries = entries.concat(data.data);
 
       return data.hasMore;
     }));

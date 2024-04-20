@@ -1,7 +1,7 @@
 <script>
   import { createEventDispatcher } from "svelte";
 
-  import { getNote, archiveNote, unarchiveNote, deleteNote, notePdfUrl } from "./api";
+  import { getNote, archiveNote, unarchiveNote, deleteNote } from "./api";
 
   import Progress from "./Progress.svelte";
 

@@ -33,7 +33,11 @@ apiNotesRouter.get("/", async (req: Request, res: Response) => {
 
   try {
     const notes = await getNotes(age, page, req.user.id);
-    res.json(notes);
+
+    const hasMore = notes.length === PAGE_COUNT + 1;
+    const data = hasMore ? notes.slice(0, -1) : notes;
+
+    res.json({ data, hasMore });
   } catch (error) {
     catchApiError(error, res);
     return;
@@ -192,7 +196,7 @@ async function getNotes(age: string, page: number, userId: number): Promise<Note
     .select()
     .where("user_id", userId)
     .offset((page - 1) * PAGE_COUNT)
-    .limit(PAGE_COUNT)
+    .limit(PAGE_COUNT + 1)
     .modify((builder) => {
       switch (age) {
         case "1month":
