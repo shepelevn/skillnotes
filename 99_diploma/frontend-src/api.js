@@ -1,4 +1,4 @@
-const PREFIX = "???";
+const PREFIX = "http://localhost:3000/api/notes";
 
 const req = (url, options = {}) => {
   const { body } = options;
@@ -19,15 +19,24 @@ const req = (url, options = {}) => {
       ? res.json()
       : res.text().then((message) => {
           throw new Error(message);
-        })
+        }),
   );
 };
 
-export const getNotes = ({ age, search, page } = {}) => {};
+export const getNotes = ({ age, search, page } = {}) => {
+  return req(`?age=${age}&search=${search}&page=${page}`);
+};
 
 export const createNote = (title, text) => {};
 
-export const getNote = (id) => {};
+export const getNote = async (id) => {
+  const response = await req(`/${id}`);
+
+  console.debug("getNote response");
+  console.debug(response);
+
+  return response;
+};
 
 export const archiveNote = {};
 

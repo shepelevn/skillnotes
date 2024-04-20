@@ -2,7 +2,7 @@ export type Note = {
   id: number;
   title: string;
   text: string;
-  created_at: Date;
+  created: Date;
   user_id: number;
   archived: boolean;
 };
@@ -20,7 +20,7 @@ export function isNote(note: Record<string, any>): note is Note {
     return false;
   }
 
-  if (!(note.created_at instanceof Date)) {
+  if (!(note.created instanceof Date)) {
     return false;
   }
 

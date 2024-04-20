@@ -7,7 +7,7 @@ exports.up = function (knex) {
     table.increments("id");
     table.string("title", 255).notNullable();
     table.text("text").notNullable();
-    table.datetime("created_at").notNullable().defaultTo(knex.fn.now());
+    table.datetime("created").notNullable().defaultTo(knex.fn.now());
     table.boolean("archived").notNullable().defaultTo(false);
 
     table.integer("user_id").unsigned().notNullable();
