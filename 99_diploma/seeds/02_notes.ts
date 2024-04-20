@@ -23,11 +23,13 @@ function createNotes(users: User[], count: number) {
 
   for (const user of users) {
     for (let i = 0; i < count; i++) {
+      const created = randomDate(Date.now() - ms("30d") * 4);
+
       notes.push({
         title: capitalize(faker.word.words(randomInt(2, 5))),
         markdown: generateMarkdown(),
-        created: randomDate(Date.now() - ms("30d") * 4),
-        modified: randomDate(Date.now() - ms("30d") * 4),
+        created,
+        modified: created,
         archived: Boolean(randomInt(0, 1)),
         user_id: user.id,
       });
