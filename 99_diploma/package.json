@@ -50,6 +50,7 @@
     "babel-eslint": "^10.1.0",
     "core-js": "^3.8.1",
     "date-fns": "^2.16.1",
+    "dedent": "^1.5.3",
     "easymde": "^2.13.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",

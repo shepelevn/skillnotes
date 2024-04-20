@@ -1,5 +1,6 @@
 import { Knex } from "knex";
 import { faker } from "@faker-js/faker";
+import dedent from "dedent";
 
 import User from "../src/auth/User";
 import { randomInt } from "../src/util/randomInt";
@@ -41,15 +42,15 @@ function generateMarkdown(): string {
 
   const subheading = faker.lorem.words(randomInt(3, 5));
 
-  return `
-  # ${heading}
+  return dedent(`
+    # ${heading}
 
-  ## ${subheading}
+    ## ${subheading}
 
-  ${faker.lorem.paragraph(randomInt(1, 4))}
+    ${faker.lorem.paragraph(randomInt(1, 4))}
 
-  ${faker.lorem.paragraph(randomInt(1, 4))}
+    ${faker.lorem.paragraph(randomInt(1, 4))}
 
-  ${faker.lorem.paragraph(randomInt(1, 4))}
-  `;
+    ${faker.lorem.paragraph(randomInt(1, 4))}
+  `);
 }
