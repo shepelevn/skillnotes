@@ -1,9 +1,9 @@
-const PREFIX = "http://localhost:3000/api/notes";
+const API_ROUTE_PREFIX = "/api/notes";
 
 const req = (url, options = {}) => {
   const { body } = options;
 
-  return fetch((PREFIX + url).replace(/\/\/$/, ""), {
+  return fetch(getApiUrl(url).replace(/\/\/$/, ""), {
     ...options,
     body: body ? JSON.stringify(body) : null,
     headers: {
@@ -76,7 +76,7 @@ export const deleteNote = (id) => {
     method: "DELETE",
   };
 
-  return fetch(`${PREFIX}/${id}`, options);
+  return fetch(getApiUrl(`/${id}`), options);
 };
 
 export const deleteAllArchived = () => {
@@ -84,7 +84,11 @@ export const deleteAllArchived = () => {
     method: "DELETE",
   };
 
-  return fetch(`${PREFIX}/archived`, options);
+  return fetch(getApiUrl("/archived"), options);
+};
+
+const getApiUrl = (route) => {
+  return window.location.origin + API_ROUTE_PREFIX + route;
 };
 
 // export const notePdfUrl = (id) => {};

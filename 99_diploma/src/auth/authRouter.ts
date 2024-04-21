@@ -66,8 +66,8 @@ authRouter.post("/signup", bodyParser.urlencoded({ extended: false }), async (re
     res.redirect("/");
   } catch (error) {
     if (error instanceof Error) {
-      console.log("Error inserting new user record into database");
-      console.log(`Message: ${error.message}`);
+      console.error("Error inserting new user record into database");
+      console.error(`Message: ${error.message}`);
       res.redirect("/?authError=Could not register user");
     }
   }

@@ -4,7 +4,8 @@
 
 ## TODO
 
-* Check if layout is responsive
+* Translate `authError`
+* Write README.md
 
 ## Checks before commit
 

@@ -6,6 +6,7 @@ import User from "../src/auth/User";
 import { randomInt } from "../src/util/randomInt";
 import { capitalize } from "../src/util/capitalize";
 import { randomDate } from "../src/util/time";
+import { Note } from "../src/api/Note";
 import ms from "ms";
 
 const NOTES_PER_USER = 60;
@@ -18,8 +19,10 @@ export async function seed(knex: Knex): Promise<void> {
   await knex("notes").insert(createNotes(users, NOTES_PER_USER));
 }
 
-function createNotes(users: User[], count: number) {
-  const notes = [];
+type SeedNote = Omit<Note, "id">;
+
+function createNotes(users: User[], count: number): SeedNote[] {
+  const notes: SeedNote[] = [];
 
   for (const user of users) {
     for (let i = 0; i < count; i++) {

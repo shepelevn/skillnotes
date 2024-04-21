@@ -28,6 +28,8 @@ const store = new KnexSessionStore({
 
 const app = express();
 
+app.set("trust proxy", Number(process.env.PROXIES_NUMBER));
+
 nunjucks.configure(path.join(__dirname, "..", "views"), {
   autoescape: true,
   express: app,
@@ -36,7 +38,7 @@ nunjucks.configure(path.join(__dirname, "..", "views"), {
 app.set("view engine", "njk");
 
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "..", "public")));
 
 const sessionSecret = process.env.SESSION_SECRET;
 
@@ -49,8 +51,7 @@ app.use(
     resave: true,
     saveUninitialized: true,
     secret: sessionSecret,
-    // TODO: Change secure option to be dependent on check if dev or prod
-    cookie: { secure: false, maxAge: ms("1d") },
+    cookie: { secure: process.env.NODE_ENV === "production", maxAge: ms("1d") },
     store,
   }),
 );
@@ -67,5 +68,7 @@ app.use("", pagesRouter);
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-  console.log(`  Listening on http://localhost:${port}`);
+  if (process.env.NODE_ENV === "development") {
+    console.log(`  Listening on http://localhost:${port}`);
+  }
 });

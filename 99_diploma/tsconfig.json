@@ -3,8 +3,7 @@
     "src/express.d.ts"
   ],
   "include": [
-    "src/**/*.ts",
-    "seeds/**/*.ts"
+    "src/**/*.ts"
   ],
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */

@@ -3,6 +3,7 @@ export type Note = {
   title: string;
   markdown: string;
   created: Date;
+  modified: Date;
   user_id: number;
   archived: boolean;
 };

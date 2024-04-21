@@ -6,14 +6,18 @@
   "keywords": [],
   "main": "./src/index.ts",
   "scripts": {
-    "start": "ts-node ./src/index.ts",
-    "dev": "ts-node-dev --respawn --debounce --watch 'src/**,views/**,public/**' ./src/index.ts",
-    "test": "echo \"Tests passed\" && exit 0",
-    "build": "rimraf public/bundle.* && rollup --config",
-    "watch": "npx rollup --config --watch",
-    "lint": "eslint ./src",
-    "lint:fix": "eslint --fix ./src",
-    "seed": "ts-node ./node_modules/.bin/knex seed:run"
+    "start": "npm run frontend:build && npm run server:start",
+    "dev": "npm run server:watch & npm run frontend:watch",
+    "build": "npm run frontend:build && npm run server:build",
+    "server:start": "NODE_ENV=development ts-node ./src/index.ts",
+    "server:watch": "NODE_ENV=development ts-node-dev --respawn --debounce --watch 'src/**,views/**,public/**' ./src/index.ts",
+    "server:build": "rimraf dist && tsc",
+    "frontend:watch": "npx rollup --config --watch",
+    "frontend:build": "rimraf public/bundle.* && rollup --config",
+    "lint": "eslint ./src ./seeds",
+    "lint:fix": "eslint --fix ./src ./seeds",
+    "seed": "ts-node ./node_modules/.bin/knex seed:run",
+    "test": "echo \"Tests passed\" && exit 0"
   },
   "engines": {
     "node": "=12.x || =14.x || =15.x || =20.x"
