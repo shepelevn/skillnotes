@@ -13,7 +13,7 @@ pagesRouter.get("/", (req, res) => {
   }
 
   res.render("index", {
-    authError: req.query.authError === "true" ? "Wrong username or password" : req.query.authError,
+    authError: req.query.authError,
   });
 });
 

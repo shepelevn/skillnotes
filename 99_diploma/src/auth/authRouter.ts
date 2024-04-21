@@ -22,7 +22,9 @@ authRouter.post("/login", bodyParser.urlencoded({ extended: false }), async (req
   const user = await findUserByUsername(username);
 
   if (!user || !compare(password, user.password)) {
-    res.redirect("/?authError=true");
+    const message = "Неверный логин или пароль";
+
+    res.redirect(`/?authError=${message}`);
     return;
   }
 
@@ -36,13 +38,13 @@ authRouter.post("/signup", bodyParser.urlencoded({ extended: false }), async (re
   const password = req.body.password.trim();
 
   if (username === "") {
-    const message = "Username can not be empty";
+    const message = "Введите логин";
     res.redirect(`/?authError=${message}`);
     return;
   }
 
   if (password === "") {
-    const message = "Password can not be empty";
+    const message = "Введите пароль";
     res.redirect(`/?authError=${message}`);
     return;
   }
@@ -50,7 +52,7 @@ authRouter.post("/signup", bodyParser.urlencoded({ extended: false }), async (re
   const user = await findUserByUsername(username);
 
   if (user) {
-    const message = `User with username "${username}" already exists`;
+    const message = `Пользователь с логином "${username}" уже существует`;
     res.redirect(`/?authError=${message}`);
     return;
   }
@@ -68,7 +70,7 @@ authRouter.post("/signup", bodyParser.urlencoded({ extended: false }), async (re
     if (error instanceof Error) {
       console.error("Error inserting new user record into database");
       console.error(`Message: ${error.message}`);
-      res.redirect("/?authError=Could not register user");
+      res.redirect("/?authError=Не удалось зарегестрировать пользователя");
     }
   }
 });

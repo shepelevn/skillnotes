@@ -4,7 +4,6 @@
 
 ## TODO
 
-* Translate `authError`
 * Write README.md
 
 ## Checks before commit
