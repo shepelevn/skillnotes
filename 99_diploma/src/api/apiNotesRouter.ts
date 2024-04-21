@@ -284,13 +284,8 @@ function getNoteData(req: Request, res: Response): NoteData | null {
   const title = req.body.title.trim();
   const markdown = req.body.markdown.trim();
 
-  if (!title) {
-    res.status(400).json({ error: "Title is not provided" });
-    return null;
-  }
-
-  if (!markdown) {
-    res.status(400).json({ error: "Markdown is not provided" });
+  if (!title && !markdown) {
+    res.status(400).json({ error: "Both title and markdown are not provided" });
     return null;
   }
 
