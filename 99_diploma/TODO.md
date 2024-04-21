@@ -4,9 +4,6 @@
 
 ## TODO
 
-* Test the site functionality
-* Move DB to cloud
-* Change avatar generation maybe
 * Check if layout is responsive
 
 ## Checks before commit

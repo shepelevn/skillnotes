@@ -8,7 +8,7 @@ import { capitalize } from "../src/util/capitalize";
 import { randomDate } from "../src/util/time";
 import ms from "ms";
 
-const NOTES_PER_USER = 20;
+const NOTES_PER_USER = 60;
 
 export async function seed(knex: Knex): Promise<void> {
   await knex("notes").truncate();
