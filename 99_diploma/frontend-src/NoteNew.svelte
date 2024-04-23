@@ -20,12 +20,13 @@
   });
 
   const save = async () => {
-    const text = textarea.value;
-    if (!title && !text) {
+    const markdown = textarea.value;
+    if (!title && !markdown) {
       return;
     }
-    const note = await createNote(title, text);
-    dispatch("routeEvent", { type: "note-created", id: note._id });
+    const note = await createNote(title, markdown);
+
+    dispatch("routeEvent", { type: "note-created", id: note.id });
   };
 
   const cancel = () => {

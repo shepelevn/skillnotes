@@ -1,7 +1,10 @@
 <script>
   import { createEventDispatcher } from "svelte";
 
-  import { getNote, archiveNote, unarchiveNote, deleteNote, notePdfUrl } from "./api";
+  import { marked } from "marked";
+  import sanitizeHtml from "sanitize-html";
+
+  import { getNote, archiveNote, unarchiveNote, deleteNote } from "./api";
 
   import Progress from "./Progress.svelte";
 
@@ -33,6 +36,12 @@
   const doEdit = () => {
     dispatch("routeEvent", { type: "note-edit-started", id: params.id });
   };
+
+  const mdToHtml = (markdown) => {
+    return sanitizeHtml(marked.parse(markdown), {
+      allowedTags: sanitizeHtml.defaults.allowedTags.concat('img'),
+    });
+  }
 </script>
 
 {#await p}
@@ -40,7 +49,7 @@
 {:then entry}
   <h1>{entry.title}</h1>
   <div class="uk-margin-bottom">
-    {#if entry.isArchived}
+    {#if entry.archived}
       <button on:click={doDelete} class="uk-button uk-button-default"><i class="fas fa-trash" />&nbsp;Удалить</button>
       <button on:click={doUnarchive} class="uk-button uk-button-default"><i
           class="fas fa-archive" />&nbsp;Восстановить</button>
@@ -49,12 +58,12 @@
     {/if}
 
     <button on:click={doEdit} class="uk-button uk-button-primary"><i class="fas fa-edit" />&nbsp;Редактировать</button>
-    <!-- <a href={notePdfUrl(entry._id)} class="uk-button uk-button-secondary"><i
+    <!-- <a href={notePdfUrl(entry.id)} class="uk-button uk-button-secondary"><i
         class="fas fa-file-download" />&nbsp;PDF</a> -->
     <button on:click={close} class="uk-button uk-button-default"><i class="fas fa-times" />&nbsp;Закрыть</button>
   </div>
   <div class="uk-card uk-card-default uk-card-body">
-    {@html entry.html}
+    {@html mdToHtml(entry.markdown)}
   </div>
 {:catch error}
   <div class="uk-alert uk-alert-danger">

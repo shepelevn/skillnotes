@@ -53,7 +53,9 @@ export const formatDate = (date) => {
   if (!date) {
     return "";
   }
+
   const d = _parseDate(date);
+
   return _formatDate(d, "dd.MM.yyyy");
 };
 

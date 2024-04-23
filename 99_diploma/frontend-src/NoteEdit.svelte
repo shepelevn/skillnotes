@@ -3,7 +3,7 @@
   import EasyMDE from "easymde";
 
   import Progress from "./Progress.svelte";
-  import { getNote, editNote, notePdfUrl } from "./api";
+  import { getNote, editNote } from "./api";
 
   export let params;
 
@@ -19,7 +19,7 @@
     fetching = getNote(params.id).then((data) => {
       title = data.title;
       setTimeout(() => {
-        mdEditor = new EasyMDE({ element: textarea, forceSync: true, status: false, initialValue: data.text });
+        mdEditor = new EasyMDE({ element: textarea, forceSync: true, status: false, initialValue: data.markdown });
       });
     });
 
