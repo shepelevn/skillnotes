@@ -1,74 +1,78 @@
 # SkillNotes
 
-Веб-приложение для создания заметок
+Web application for creating notes.
 
-## Содержание
+## README.md
 
-* [Описание проекта](#описание-проекта)
-* [Технологии использованные в серверной части](#технологии-использованные-в-серверной-части)
-* [Установка проекта](#установка-проекта)
-* [Запуск сервера для разработки](#запуск-сервера-для-разработки)
-* [Компиляция и сборка проекта](#компиляция-и-сборка-проекта)
-* [Развертывание проекта на Vercel](#развертывание-проекта-на-vercel)
-* [Наполнение базы данных тестовыми данными](#наполнение-базы-данных-тестовыми-данными)
-* [Конфигурация](#конфигурация)
-* [Информация по API](#информация-по-api)
+* en [English](README.md)
+* ru [Русский](readme/README.ru.md)
 
-## Описание проекта
+## Table of Contents
 
-Сервис личных заметок в формате Markdown. Итоговый проект курса Node.js на
-платформе SkillBox.
-Сервис позволяет создавать, редактировать, архивировать и удалять заметки.
+* [Project-description](#project-description)
+* [Technologies used in backend](#technologies-used-in-backend)
+* [Installation](#installation)
+* [Development server launch](#development-server-launch)
+* [Compilation and bundling of the project](#compilation-and-bundling-of-the-project)
+* [Deploying on Vercel](#deploying-on-vercel)
+* [Database seeding](#database-seeding)
+* [Configuration](#configuration)
+* [API information](#api-information)
 
-## Технологии использованные в серверной части
+## Project description
+
+Personal notes service in Markdown format.
+Service allows you to create, edit, archive, and delete notes.
+
+## Technologies used in backend
 
 * Node.js
 * TypeScript
 * Express.js
 * PostgreSQL
 
-## Установка проекта
+## Installation
 
-Действия при установке проекта:
+Steps to install the project:
 
-1. Установить пакеты npm с помощью команды `npm install`
-2. Создать файл с конфигурацией `.env` по примеру файла `.env-sample`
-3. Выполнить миграцию базы данных `npx knex migrate:latest`
-4. Выполнить наполнение базы данных тестовыми данными если это необходимо
-  `npm run seed`
+1. Install npm packages by running `npm install`
+2. Create configuration file `.env` using the example file `.env-sample`
+3. Migrate database with `npx knex migrate:latest`
+4. Seed database with data for testing if you need to `npm run seed`
 
-## Запуск сервера для разработки
+## Development server launch
 
-Запустить сервер для разработки можно с помощью команды `npm run dev`.  
-Сервер работает по URL: `http://localhost:3000`
+You can launch development server by using command `npm run dev`  
+Server listens on URL: `http://localhost:3000`.
 
-## Компиляция и сборка проекта
+## Compilation and bundling of the project
 
-Компиляция и сборка проекта совершается с помощью команды `npm run build`.
+Compilation and bundling of the project is done using command
+`npm run build`.
 
-## Развертывание проекта на Vercel
+## Deploying on Vercel
 
-Перед развертыванием проекта необходимо выполнить компиляцию и сборку
-командой `npm run build`, затем развернуть проект командой `vercel`.
-В проекте Vercel нужно установить переменные окружения по примеру .env-sample.
+Before deploying the project you have to compile and bundle the code using
+`npm run build` command, then you can deploy by using the command `vercel`.
+In Vercel project you have to set up environment variables as they are
+described in `.env-sample`.
 
-## Наполнение базы данных тестовыми данными
+## Database seeding
 
-Наполнение выполняется с помощью команды `npm run seed`.
+Seeding is done using the command `npm run seed`.
 
-При наполнением тестовыми данными создается пользователь 'user' с паролем
-'password'.
+Seeder creates user with the username 'user' and password "password".
 
-## Конфигурация
+## Configuration
 
-Конфигурация находится в файле `.env`. Пример конфигурации  
-можно найти в файле `.env-sample`.
+Configuration should be set inside `.env` file. The example can be found in  
+`.env-sample` file.
 
-## Информация по API
+## API information
 
-### Примечания по данным
+### Notes on data
 
-Тип Note:
+Note type:
 
 ```json
 {
@@ -82,36 +86,36 @@
 }
 ```
 
-### Эндпойнты
+### Endpoints
 
-#### GET `/api/notes` - Получить список заметок
+#### GET `/api/notes` - Get notes list
 
-Принимает query-параметры:
+Receives query-parameters:
 
-`age` - строка для фильтрации списка заметок по дате или нахождения в архиве.
+`age` - string for filtering list of notes by date or presence in the archive
 
-Возможные значения:
+Possible values:
 
 * `1month`
 * `3months`
 * `alltime`
 * `archived`
 
-`page` - номер страницы пагинации
+`page` - pagination number
 
-Возвращает массив с типом Note
-
----
-
-#### GET `/api/notes/{id}` - Получить данные о конкретной заметке
-
-Возвращает тип Note
+Returns the array with Note type
 
 ---
 
-#### POST `/api/notes` - Создать новую заметку
+#### GET `/api/notes/{id}` - Get data about a specific note
 
-Принимает:
+Returns Note type
+
+---
+
+#### POST `/api/notes` - Create new note
+
+Receives:
 
 ```json
 {
@@ -120,13 +124,13 @@
 }
 ```
 
-Возвращает тип Note
+Returns Note type
 
 ---
 
-#### PUT `/api/notes{id}` - Изменить заметку
+#### PUT `/api/notes{id}` - Edit note
 
-Принимает:
+Receives:
 
 ```json
 {
@@ -135,26 +139,26 @@
 }
 ```
 
-Возвращает тип Note
+Returns Note type
 
 ---
 
-#### POST `/api/notes/{id}/archive` - Перенести заметку в архив
+#### POST `/api/notes/{id}/archive` - Archive note
 
-Возвращает тип Note
-
----
-
-#### POST `/api/notes/{id}/unarchive` - Восстановить заметку из архива
-
-Возвращает тип Note
+Returns Note type
 
 ---
 
-#### DELETE `/api/notes/{id}` - Удалить заметку
+#### POST `/api/notes/{id}/unarchive` - Restore note from archive
+
+Returns Note type
 
 ---
 
-#### DELETE `/api/notes/archived` - Удалить все заметки в архиве
+#### DELETE `/api/notes/{id}` - Delete note
+
+---
+
+#### DELETE `/api/notes/archived` - Delete all notes in archive
 
 ---
