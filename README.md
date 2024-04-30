@@ -18,6 +18,7 @@ Web application for creating notes.
 * [Database seeding](#database-seeding)
 * [Configuration](#configuration)
 * [API information](#api-information)
+* [cURL commands](#curl-commands)
 
 ## Project description
 
@@ -162,3 +163,21 @@ Returns Note type
 #### DELETE `/api/notes/archived` - Delete all notes in archive
 
 ---
+
+## cURL commands
+
+Curl commands can be used to test the API. They are located in
+`/scripts/curl/`.
+
+* `login.sh <USERNAME> <PASSWORD>` - Sign into the system;
+  This command saves cookies in a `cookie-jar.txt` file
+* `createNote.sh <TITLE> <MARKDOWN>` - Create new note
+* `getNotes.sh <AGE> <PAGE>` - Get a list of notes;
+  `<AGE>` parameter is described in `API information` section
+* `getNote.sh <ID>` - Get data on specific note
+* `updateNote.sh <ID> <TITLE> <MARKDOWN>` - Update note
+* `archiveNote.sh <ID>` - Archive note
+* `unarchiveNote.sh <ID>` - Remove note from the archive
+* `deleteNote.sh <ID>` - Delete note
+* `deleteArchived.sh` - Delete all archived notes
+* `404.sh` - Test the API for 404 error
