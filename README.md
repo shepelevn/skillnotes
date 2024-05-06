@@ -9,7 +9,7 @@ Web application for creating notes.
 
 ## Table of Contents
 
-* [Project-description](#project-description)
+* [Project description](#project-description)
 * [Technologies used in backend](#technologies-used-in-backend)
 * [Installation](#installation)
 * [Development server launch](#development-server-launch)
@@ -23,7 +23,7 @@ Web application for creating notes.
 ## Project description
 
 Personal notes service in Markdown format.
-Service allows you to create, edit, archive, and delete notes.
+The service allows you to create, edit, archive, and delete notes.
 
 ## Technologies used in backend
 
@@ -37,7 +37,7 @@ Service allows you to create, edit, archive, and delete notes.
 Steps to install the project:
 
 1. Install npm packages by running `npm install`
-2. Create configuration file `.env` using the example file `.env-sample`
+2. Create configuration file `.env` based on the example file `.env-sample`
 3. Migrate database with `npx knex migrate:latest`
 4. Seed database with data for testing if you need to `npm run seed`
 
@@ -104,7 +104,7 @@ Possible values:
 
 `page` - pagination number
 
-Returns the array with Note type
+Returns an array with Note type
 
 ---
 
@@ -170,7 +170,7 @@ Curl commands can be used to test the API. They are located in
 `/scripts/curl/`.
 
 * `login.sh <USERNAME> <PASSWORD>` - Sign into the system;
-  This command saves cookies in a `cookie-jar.txt` file
+  This command saves cookies in a file named `cookie-jar.txt`
 * `createNote.sh <TITLE> <MARKDOWN>` - Create new note
 * `getNotes.sh <AGE> <PAGE>` - Get a list of notes;
   `<AGE>` parameter is described in `API information` section
